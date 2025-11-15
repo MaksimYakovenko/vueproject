@@ -5,7 +5,7 @@
           v-for="entry in filteredItems"
           :key="entry.index"
       >
-        <span>
+        <span :class="{ boughtClass: entry.item.bought }">
           <strong>{{ entry.item.name }}</strong>
           — {{ entry.item.price }} грн
           — статус:
@@ -26,7 +26,12 @@
     </ul>
 
     <p v-else>
-      Немає покупок для відображення.
+      <span v-if="props.items.length === 0">
+        Список порожній.
+      </span>
+      <span v-else>
+        Немає покупок для відображення.
+      </span>
     </p>
   </div>
 </template>
@@ -57,3 +62,10 @@ const filteredItems = computed(() => {
   return withIndex;
 });
 </script>
+
+<style scoped>
+.boughtClass {
+  color: gray;
+  text-decoration: line-through;
+}
+</style>
